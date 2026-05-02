@@ -1,0 +1,64 @@
+[project]
+name = "open-notebook"
+version = "0.1.0"
+description = "A SenseNova-powered notebook for full-canvas poster, slide, and research figure generation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Open_Notebook contributors" }
+]
+dependencies = [
+  "fastapi>=0.115.0,<1",
+  "uvicorn[standard]>=0.30.0,<1",
+  "pydantic>=2.8.0,<3",
+  "python-multipart>=0.0.9,<1",
+  "python-dotenv>=1.0.1,<2",
+  "httpx>=0.27.0,<1",
+  "pillow>=10.4.0,<13",
+  "python-pptx>=1.0.2,<2",
+  "reportlab>=4.2.0,<5",
+  "pypdf>=4.3.0,<7",
+  "python-docx>=1.1.2,<2",
+  "openpyxl>=3.1.5,<4",
+  "pandas>=2.2.2,<3",
+  "huggingface-hub>=0.23.0,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0,<9",
+  "pytest-asyncio>=0.23.8,<1",
+  "ruff>=0.6.0,<1",
+  "mypy>=1.11.0,<2",
+]
+local-u1 = [
+  "torch==2.8.0",
+  "torchvision==0.23.0",
+  "transformers==4.57.1",
+  "tokenizers==0.22.1",
+  "accelerate==1.10.1",
+  "numpy==2.2.0",
+  "safetensors==0.6.2",
+  "sentencepiece==0.2.1",
+]
+
+[project.scripts]
+open-notebook = "open_notebook.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend/open_notebook"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

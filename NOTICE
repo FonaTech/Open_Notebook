@@ -1,0 +1,17 @@
+Open_Notebook
+
+This project implements a new application architecture for SenseNova-powered
+document-to-visual workflows. It was designed with reference to local materials
+provided by the project owner:
+
+- Clouds_Coder.py: LLM profile configuration and provider-selection behavior.
+- SenseNova-U1-main: SenseNova-U1 local inference concepts and resolution buckets.
+- SenseNova-Skills-main: SenseNova image, infographic, and PPT workflow contracts.
+
+No SenseNova model weights, generated showcase images, private API keys, or
+large upstream source files are redistributed in this repository.
+
+The Open_Notebook repository code is licensed under the MIT License. Referenced
+third-party projects, model weights, downloaded source checkouts, user uploads,
+and generated outputs retain their own ownership and license terms. See
+OWNERSHIP_AND_LICENSE.md and THIRD_PARTY_NOTICES.md for the detailed boundary.

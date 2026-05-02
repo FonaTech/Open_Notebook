@@ -1,0 +1,23 @@
+{
+  "profiles": [
+    {
+      "id": "sensenova-chat",
+      "provider": "openai_compat",
+      "label": "SenseNova Chat",
+      "model": "sensenova-6.7-flash-lite",
+      "base_url": "https://token.sensenova.cn/v1",
+      "api_key": "",
+      "capabilities": {
+        "image_input": true
+      }
+    },
+    {
+      "id": "local-ollama",
+      "provider": "ollama",
+      "label": "Ollama",
+      "model": "qwen2.5:7b",
+      "base_url": "http://localhost:11434"
+    }
+  ],
+  "default_profile_id": "sensenova-chat"
+}

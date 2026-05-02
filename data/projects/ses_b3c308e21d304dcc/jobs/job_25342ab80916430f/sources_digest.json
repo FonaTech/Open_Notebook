@@ -1,0 +1,60 @@
+{
+  "topic_summary": "This paper presents an on-the-fly machine learning force field (MLFF) generation method integrated into electronic-structure codes using Bayesian inference. The method automatically generates force fields during molecular dynamics simulations, executing first-principles calculations only when encountering new configurations. Applied to calculate melting points of Al, Si, Ge, Sn, and MgO, the method bypasses >99% of first-principles calculations while accelerating simulations by a factor of 1000, achieving quantitative reproduction of first-principles melting points validated by thermodynamic perturbation theory.",
+  "key_points": [
+    "On-the-fly MLFF generation using Bayesian inference automatically creates force fields during MD simulations",
+    "First-principles calculations executed only for new configurations outside existing datasets",
+    "Applied to melting point calculations of Al, Si, Ge, Sn, and MgO",
+    ">99% of first-principles calculations bypassed during force field generation",
+    "Simulations accelerated by factor of 1000 compared to first-principles",
+    "Accurate melting points validated using thermodynamic perturbation theory"
+  ],
+  "data_highlights": [
+    {
+      "label": "First-principles bypass rate",
+      "value": ">99%",
+      "context": "During force field generation phase"
+    },
+    {
+      "label": "Simulation acceleration factor",
+      "value": "1000×",
+      "context": "Compared to direct first-principles calculations"
+    },
+    {
+      "label": "Bayesian inference method",
+      "value": "On-the-fly",
+      "context": "Real-time uncertainty quantification during MD"
+    },
+    {
+      "label": "Validation method",
+      "value": "Thermodynamic perturbation theory",
+      "context": "Accuracy verification of melting points"
+    },
+    {
+      "label": "Tested materials",
+      "value": "5",
+      "context": "Al, Si, Ge, Sn, MgO"
+    }
+  ],
+  "visual_entities": [
+    "Molecular dynamics simulation trajectory",
+    "Solid-liquid phase interface",
+    "Bayesian inference uncertainty quantification",
+    "Force field generation workflow",
+    "Melting point calculation process",
+    "Phase diagram (temperature-pressure)",
+    "Electronic structure calculation bypass mechanism",
+    "Thermodynamic integration path"
+  ],
+  "tables": [
+    "Comparison of melting points: Machine learning force field vs first-principles results",
+    "Computational efficiency metrics: Bypass percentage and acceleration factors",
+    "Material systems tested: Al, Si, Ge, Sn, MgO properties"
+  ],
+  "images": [
+    "Figure 1: Workflow schematic of on-the-fly MLFF generation showing Bayesian inference loop",
+    "Figure 2: Solid-liquid coexistence simulation snapshots for Al or MgO",
+    "Figure 3: Uncertainty evolution during molecular dynamics trajectory",
+    "Figure 4: Melting point convergence plots comparing MLFF and FP results"
+  ],
+  "language": "en"
+}

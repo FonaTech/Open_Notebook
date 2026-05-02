@@ -1,0 +1,172 @@
+{
+  "title": "On-the-Fly Machine Learning Force Field Generation",
+  "language": "en",
+  "page_count": 10,
+  "style_brief": "Scientific visualization aesthetic combining crystalline lattice structures, neural network node patterns, and molecular dynamics trajectories. Use cinematic lighting with deep teal, electric orange, and slate blue color palette. Render 3D atomic models with solid-liquid phase interfaces, Bayesian uncertainty clouds, and data flow particles. High-detail technical illustration style suitable for Nature/Science journal covers, with clean typography areas reserved for text overlay.",
+  "pages": [
+    {
+      "page_no": 1,
+      "page_type": "cover",
+      "headline": "On-the-Fly Machine Learning Force Field Generation",
+      "subheadline": "Bayesian Inference for Accelerated Molecular Dynamics Simulations",
+      "body_points": [],
+      "callouts": [],
+      "visual_hints": "Abstract visualization of Bayesian uncertainty quantification overlaid on molecular trajectories, crystalline lattice structures dissolving into liquid phases, neural network node patterns in background, cinematic depth of field with teal and orange lighting",
+      "facts_to_preserve": []
+    },
+    {
+      "page_no": 2,
+      "page_type": "content",
+      "headline": "The Computational Bottleneck in Ab Initio MD",
+      "subheadline": "",
+      "body_points": [
+        "First-principles calculations provide accuracy but are prohibitively expensive for large-scale or long-time simulations",
+        "Traditional force fields lack transferability across different chemical environments",
+        "Manual force field development is time-consuming and requires expert knowledge"
+      ],
+      "callouts": [],
+      "visual_hints": "Split-screen composition showing dense electronic density maps (left) versus expansive empty simulation boxes (right), clock faces superimposed on molecular trajectories indicating time constraints, dark blue gradient background",
+      "facts_to_preserve": []
+    },
+    {
+      "page_no": 3,
+      "page_type": "content",
+      "headline": "On-the-Fly MLFF via Bayesian Active Learning",
+      "subheadline": "",
+      "body_points": [
+        "Bayesian inference enables real-time uncertainty quantification during molecular dynamics",
+        "First-principles calculations executed only when encountering configurations outside existing dataset",
+        "Automatic dataset construction and force field updates during simulation runtime"
+      ],
+      "callouts": [],
+      "visual_hints": "Circular workflow diagram showing MD simulation → Uncertainty check → Conditional DFT calculation → Dataset update → MLFF retraining, rendered as glowing pipeline with data flow particles, orange and teal accent colors, dark background",
+      "facts_to_preserve": [
+        "Bayesian inference",
+        "On-the-fly"
+      ]
+    },
+    {
+      "page_no": 4,
+      "page_type": "data",
+      "headline": "Computational Efficiency Breakthrough",
+      "subheadline": "Bypassing >99% of First-Principles Calculations",
+      "body_points": [
+        ">99% of first-principles calculations bypassed during force field generation phase",
+        "Simulations accelerated by factor of 1000 compared to direct first-principles calculations",
+        "Validation performed using thermodynamic perturbation theory ensuring quantitative accuracy"
+      ],
+      "callouts": [
+        ">99%",
+        "1000×"
+      ],
+      "visual_hints": "Infographic style with large bold 3D typography for '>99%' and '1000×' floating in space, speedometer or acceleration metaphor, comparison bars showing tiny DFT calculation count versus massive MLFF prediction count, glowing particles, dark teal background with orange highlights",
+      "facts_to_preserve": [
+        ">99% of first-principles calculations bypassed",
+        "factor of 1000",
+        "thermodynamic perturbation theory"
+      ]
+    },
+    {
+      "page_no": 5,
+      "page_type": "content",
+      "headline": "Melting Point Calculations for Five Materials",
+      "subheadline": "",
+      "body_points": [
+        "Applied to calculate melting points of Aluminum (Al), Silicon (Si), Germanium (Ge), Tin (Sn), and Magnesium Oxide (MgO)",
+        "Solid-liquid coexistence simulations performed for all five material systems",
+        "Quantitative reproduction of first-principles melting points achieved across metallic and ionic systems"
+      ],
+      "callouts": [],
+      "visual_hints": "Periodic table highlighting Al, Si, Ge, Sn, Mg, O elements with glowing borders, crystal structure models showing solid-liquid interfaces with thermal gradients (orange to blue), phase coexistence visualization with ordered lattice transitioning to disordered liquid, dark scientific background",
+      "facts_to_preserve": [
+        "Al, Si, Ge, Sn, and MgO",
+        "melting points"
+      ]
+    },
+    {
+      "page_no": 6,
+      "page_type": "data",
+      "headline": "Accuracy Validation via Thermodynamic Perturbation",
+      "subheadline": "Quantitative Agreement with First-Principles Results",
+      "body_points": [
+        "Machine learning force fields quantitatively reproduce first-principles melting points",
+        "Thermodynamic perturbation theory employed for rigorous accuracy verification",
+        "Systematic validation performed across diverse chemical systems including metals and oxides"
+      ],
+      "callouts": [
+        "Thermodynamic Perturbation Theory",
+        "Quantitative Reproduction"
+      ],
+      "visual_hints": "Scatter plot or correlation diagram showing MLFF vs FP melting points with diagonal reference line and tight clustering of data points, error bars indicating thermodynamic integration uncertainty, scientific chart aesthetic with grid lines, teal and orange data points on dark background",
+      "facts_to_preserve": [
+        "thermodynamic perturbation theory",
+        "quantitative reproduction of first-principles melting points"
+      ]
+    },
+    {
+      "page_no": 7,
+      "page_type": "content",
+      "headline": "Integration into Electronic-Structure Codes",
+      "subheadline": "",
+      "body_points": [
+        "Method integrated directly into electronic-structure codes for seamless workflow",
+        "Real-time Bayesian active learning occurs during molecular dynamics simulation",
+        "Automatic force field updates require no manual intervention or external preprocessing"
+      ],
+      "callouts": [],
+      "visual_hints": "Software architecture diagram showing layers from electronic structure codes (bottom) through ML layer to MD simulation (top), data flow arrows indicating real-time communication, glowing connection lines, abstract code syntax elements floating in space, dark blue technological background",
+      "facts_to_preserve": [
+        "electronic-structure codes"
+      ]
+    },
+    {
+      "page_no": 8,
+      "page_type": "section",
+      "headline": "Transforming Computational Materials Science",
+      "subheadline": "Democratizing Large-Scale Accurate Simulations",
+      "body_points": [
+        "Enables previously intractable materials studies requiring long timescales or large system sizes",
+        "Bridges the gap between quantum mechanical accuracy and computational efficiency",
+        "Eliminates manual force field development bottleneck for complex chemical environments"
+      ],
+      "callouts": [],
+      "visual_hints": "Futuristic laboratory visualization with holographic molecular models floating in space, network connections showing global research collaboration, before/after conceptual split showing constrained small simulation versus expansive large-scale system, inspiring cinematic lighting with orange and teal gradients, sense of technological breakthrough",
+      "facts_to_preserve": []
+    },
+    {
+      "page_no": 9,
+      "page_type": "content",
+      "headline": "Key Achievements",
+      "subheadline": "",
+      "body_points": [
+        "On-the-fly generation eliminates manual force field development and dataset curation",
+        "First-principles calculations bypassed for >99% of configurations during generation phase",
+        "1000× acceleration achieved while maintaining quantitative accuracy validated by thermodynamic perturbation theory",
+        "Successful application to melting points of Al, Si, Ge, Sn, and MgO"
+      ],
+      "callouts": [
+        ">99%",
+        "1000×",
+        "5 Materials"
+      ],
+      "visual_hints": "Three large golden achievement badges or trophy icons displaying the key metrics (99%, 1000x, 5 Materials), checkmark icons, clean minimalist design with bold typography floating in 3D space, celebratory lighting with particles, dark elegant background",
+      "facts_to_preserve": [
+        ">99%",
+        "1000×",
+        "Al, Si, Ge, Sn, and MgO",
+        "thermodynamic perturbation theory",
+        "On-the-fly"
+      ]
+    },
+    {
+      "page_no": 10,
+      "page_type": "closing",
+      "headline": "Questions & Discussion",
+      "subheadline": "On-the-Fly Machine Learning Force Fields for Molecular Dynamics",
+      "body_points": [],
+      "callouts": [],
+      "visual_hints": "Clean minimalist design with elegant sans-serif typography, abstract background suggesting molecular trajectories or neural network patterns fading to white gradient, subtle crystalline lattice structures in lower corners, professional academic presentation closing aesthetic with space for institutional affiliation",
+      "facts_to_preserve": []
+    }
+  ]
+}
