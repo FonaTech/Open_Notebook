@@ -36,9 +36,10 @@ publishing or redistributing a fork.
 
 ```bash
 cd Open_Notebook
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+python3.11 -m venv .venv311
+source .venv311/bin/activate
+pip install -U pip -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -e ".[dev,local-u1]" -i https://pypi.tuna.tsinghua.edu.cn/simple
 cp .env.example .env
 ```
 
@@ -133,8 +134,8 @@ You can also use absolute paths locally, but do not commit them. The external
 SenseNova-U1 checkout and model weights are not covered by this repository's MIT
 license; follow the upstream license and model terms.
 For local U1 inference, follow the upstream SenseNova-U1 dependency guidance;
-Python 3.11 is recommended for the model runtime even though the Web UI itself
-can run on Python 3.10+.
+Python 3.11 is the recommended model runtime even though the Web UI itself can
+run on Python 3.10+.
 
 Open_Notebook uses the official SenseNova-U1 transformers T2I defaults for
 local generation:
