@@ -11,9 +11,11 @@ from open_notebook.core.json_utils import json_dumps
 from open_notebook.models import (
     ArtifactKind,
     ArtifactOut,
+    ConversationMessageOut,
     JobMode,
     JobOut,
     JobStatus,
+    MessageRole,
     SessionOut,
     SourceKind,
     SourceOut,
@@ -81,6 +83,15 @@ class Storage:
                     metadata TEXT NOT NULL,
                     created_at TEXT NOT NULL,
                     FOREIGN KEY(job_id) REFERENCES jobs(id)
+                );
+                CREATE TABLE IF NOT EXISTS messages (
+                    id TEXT PRIMARY KEY,
+                    session_id TEXT NOT NULL,
+                    role TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    metadata TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    FOREIGN KEY(session_id) REFERENCES sessions(id)
                 );
                 CREATE TABLE IF NOT EXISTS events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -292,6 +303,55 @@ class Storage:
             )
         return self.get_artifact(artifact_id)
 
+    def add_message(
+        self,
+        *,
+        session_id: str,
+        role: MessageRole,
+        content: str,
+        metadata: dict[str, Any] | None = None,
+    ) -> ConversationMessageOut:
+        message_id = new_id("msg")
+        now = utc_now_iso()
+        with self.connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO messages(id,session_id,role,content,metadata,created_at)
+                VALUES(?,?,?,?,?,?)
+                """,
+                (
+                    message_id,
+                    session_id,
+                    role.value if hasattr(role, "value") else str(role),
+                    content,
+                    json_dumps(metadata or {}),
+                    now,
+                ),
+            )
+        self.touch_session(session_id)
+        return self.get_message(message_id)
+
+    def get_message(self, message_id: str) -> ConversationMessageOut:
+        with self.connect() as conn:
+            row = conn.execute("SELECT * FROM messages WHERE id=?", (message_id,)).fetchone()
+        if not row:
+            raise KeyError(f"message not found: {message_id}")
+        return self._message_from_row(row)
+
+    def list_messages(self, session_id: str, limit: int = 200) -> list[ConversationMessageOut]:
+        limit = max(1, min(500, int(limit or 200)))
+        with self.connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM messages
+                WHERE session_id=?
+                ORDER BY created_at DESC
+                LIMIT ?
+                """,
+                (session_id, limit),
+            ).fetchall()
+        return [self._message_from_row(r) for r in reversed(rows)]
+
     def list_artifacts(self, job_id: str) -> list[ArtifactOut]:
         with self.connect() as conn:
             rows = conn.execute(
@@ -395,6 +455,17 @@ class Storage:
             label=row["label"],
             path=row["path"],
             mime_type=row["mime_type"],
+            metadata=json.loads(row["metadata"] or "{}"),
+            created_at=row["created_at"],
+        )
+
+    @staticmethod
+    def _message_from_row(row: sqlite3.Row) -> ConversationMessageOut:
+        return ConversationMessageOut(
+            id=row["id"],
+            session_id=row["session_id"],
+            role=MessageRole(row["role"]),
+            content=row["content"],
             metadata=json.loads(row["metadata"] or "{}"),
             created_at=row["created_at"],
         )

@@ -46,6 +46,13 @@ class ArtifactKind(StrEnum):
     text = "text"
 
 
+class MessageRole(StrEnum):
+    user = "user"
+    assistant = "assistant"
+    system = "system"
+    tool = "tool"
+
+
 class SessionCreate(BaseModel):
     title: str = "Untitled Notebook"
 
@@ -97,6 +104,22 @@ class ArtifactOut(BaseModel):
     label: str
     path: str
     mime_type: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
+    created_at: str
+
+
+class ConversationMessageCreate(BaseModel):
+    content: str
+    mode_hint: JobMode = JobMode.auto
+    options: dict[str, Any] = Field(default_factory=dict)
+    source_ids: list[str] = Field(default_factory=list)
+
+
+class ConversationMessageOut(BaseModel):
+    id: str
+    session_id: str
+    role: MessageRole
+    content: str
     metadata: dict[str, Any] = Field(default_factory=dict)
     created_at: str
 

@@ -21,16 +21,16 @@ Schema:
   "visual_entities": ["objects, processes, organisms, systems, materials"],
   "tables": ["table summaries"],
   "images": ["image summaries if any"],
-  "language": "zh|en"
+  "language": "zh-CN|zh-TW|en|ja"
 }
 """
 
-PPT_PLAN_SYSTEM = """You are planning a creative-mode PPT where every slide is generated as one complete 16:9 image by SenseNova U1.
+PPT_PLAN_SYSTEM = """You are planning a concise professional PPT where every slide is generated as one complete 16:9 image by SenseNova U1.
 The final PPTX/PDF will be assembled from full-page PNGs. Do not plan HTML boxes or editable shapes.
 Return JSON only:
 {
   "title": "...",
-  "language": "zh|en",
+  "language": "zh-CN|zh-TW|en|ja",
   "page_count": n,
   "style_brief": "specific art direction for the whole deck, suitable for text-to-image",
   "pages": [
@@ -48,7 +48,14 @@ Return JSON only:
 }
 Rules:
 - pages length must equal page_count.
+- Obey options.output_language when it is zh-CN, zh-TW, en, or ja. If it is auto, infer from source/user language.
+- All on-image text must use the selected output language. For zh-TW, use Traditional Chinese; for zh-CN, use Simplified Chinese; for ja, use Japanese.
+- Default style is clean, restrained, academic/business presentation design.
+- Use strong grid layout, generous whitespace, simple charts/icons, and one main idea per slide.
+- Avoid cinematic, neon, particle streams, busy 3D, glowing clouds, decorative sci-fi, and dense illustration unless the user explicitly requests that style.
 - PPT content/data/section pages must carry readable text, not decorative placeholders.
+- Each slide should contain a headline plus at most 3-4 short body points.
+- Body points must be short: about 16 Chinese characters or 10 English words each when possible.
 - Keep on-image Chinese accurate when language is zh.
 - Preserve source facts and numbers exactly.
 """
@@ -61,6 +68,9 @@ Hard requirements:
 - All visible text is baked into the image and must be clearly readable.
 - Spell the headline exactly once.
 - For section/content/data pages, include every body point verbatim in the prompt.
+- Use a concise, dry, executive presentation style by default: clean white or restrained dark background, precise grid, subtle accent color, simple diagrams, readable typography.
+- Avoid cinematic lighting, neon glow, particle effects, dramatic depth of field, decorative 3D objects, and poster-like busy composition unless explicitly required by the page.
+- Keep text blocks sparse and well aligned. Do not place important text near image edges.
 - Use natural color names and relative typography only. Do not include hex/rgb/css/json/yaml/spec-sheet wording.
 - Do not ask for placeholders. Describe the finished slide.
 """
@@ -69,7 +79,7 @@ POSTER_PLAN_SYSTEM = """You design one complete full-canvas poster generated dir
 Return JSON only:
 {
   "title": "...",
-  "language": "zh|en",
+  "language": "zh-CN|zh-TW|en|ja",
   "aspect_ratio": "16:9|9:16|1:1|3:4|4:3|2:3|3:2",
   "style_brief": "specific art direction",
   "on_image_text": ["all required text blocks"],
@@ -77,13 +87,15 @@ Return JSON only:
   "facts_to_preserve": ["facts/numbers"],
   "prompt": "final rich text-to-image prompt for one complete poster"
 }
+Rules:
+- Obey options.output_language when provided. All on-image text must use that language.
 """
 
 RESEARCH_FIGURE_PLAN_SYSTEM = """You design one complete research/scientific figure generated directly by SenseNova U1.
 Return JSON only:
 {
   "figure_type": "architecture diagram|mechanism diagram|principle diagram|graphical abstract|3D research illustration|data infographic",
-  "language": "zh|en",
+  "language": "zh-CN|zh-TW|en|ja",
   "aspect_ratio": "16:9|4:3|1:1|3:2",
   "title": "...",
   "required_labels": ["labels that must appear"],
@@ -92,17 +104,21 @@ Return JSON only:
   "facts_to_preserve": ["facts/numbers"],
   "prompt": "final rich text-to-image prompt for one complete figure"
 }
+Rules:
+- Obey options.output_language when provided. All labels and on-image text must use that language.
 """
 
 EDIT_PLAN_SYSTEM = """You design an image-editing instruction for SenseNova.
 Return JSON only:
 {
-  "language": "zh|en",
+  "language": "zh-CN|zh-TW|en|ja",
   "edit_summary": "...",
   "preserve": ["what must remain"],
   "change": ["what to change"],
   "prompt": "final image editing prompt"
 }
+Rules:
+- Obey options.output_language when provided. All new/changed on-image text must use that language.
 """
 
 REVIEW_SYSTEM = """You review an image generation plan/result based on available text metadata.

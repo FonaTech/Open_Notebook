@@ -34,6 +34,36 @@ publishing or redistributing a fork.
 
 ## Quick Start
 
+Recommended cross-platform startup:
+
+```bash
+cd Open_Notebook
+./start_webui.sh
+```
+
+Windows:
+
+```powershell
+cd Open_Notebook
+.\start_webui.bat
+```
+
+The startup scripts create `.venv311` if needed, install Python dependencies
+from the Tsinghua PyPI mirror by default, and then run `start.py`. They do not
+require Node.js when `frontend/dist` is present.
+
+If Python 3.11 is not on PATH, set it explicitly:
+
+```bash
+PYTHON_BIN=/path/to/python3.11 ./start_webui.sh
+```
+
+```powershell
+$env:PYTHON_BIN="C:\Path\To\python.exe"; .\start_webui.ps1
+```
+
+Manual setup:
+
 ```bash
 cd Open_Notebook
 python3.11 -m venv .venv311
@@ -68,7 +98,7 @@ SN_CHAT_MODEL="sensenova-6.7-flash-lite"
 For a no-key local smoke test:
 
 ```bash
-python start.py --fake-image
+./start_webui.sh --fake-image
 ```
 
 Frontend development, optional:
@@ -128,6 +158,17 @@ OPEN_NOTEBOOK_IMAGE_BACKEND=local_u1
 SENSENOVA_U1_MODEL_PATH=models/Full
 SENSENOVA_U1_SOURCE_ROOT=../SenseNova-U1-main/src
 SENSENOVA_U1_DEVICE=mps
+```
+
+The Linux/macOS startup script defaults to `cuda` on Linux and `mps` on macOS.
+The Windows startup script defaults to `cuda`. Override when needed:
+
+```bash
+SENSENOVA_U1_DEVICE=cpu ./start_webui.sh
+```
+
+```powershell
+$env:SENSENOVA_U1_DEVICE="cuda"; .\start_webui.ps1
 ```
 
 You can also use absolute paths locally, but do not commit them. The external

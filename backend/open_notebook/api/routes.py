@@ -8,8 +8,17 @@ from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Up
 from fastapi.responses import FileResponse, StreamingResponse
 
 from open_notebook.dependencies import broker_dep, storage_dep
-from open_notebook.models import ArtifactOut, JobCreate, JobOut, SessionCreate, SessionOut, SourceOut
+from open_notebook.models import (
+    ArtifactOut,
+    ConversationMessageCreate,
+    JobCreate,
+    JobOut,
+    SessionCreate,
+    SessionOut,
+    SourceOut,
+)
 from open_notebook.services.events import EventBroker
+from open_notebook.services.agent import NotebookAgent
 from open_notebook.services.llm_settings import LLMSettingsService
 from open_notebook.services.model_assets import download_model, model_status
 from open_notebook.services.sources import save_upload
@@ -41,6 +50,7 @@ def get_session(session_id: str, storage: Storage = Depends(storage_dep)) -> dic
             "session": storage.get_session(session_id),
             "sources": storage.list_sources(session_id),
             "jobs": storage.list_jobs(session_id),
+            "messages": storage.list_messages(session_id),
         }
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
@@ -86,6 +96,68 @@ async def create_job(
     )
     background_tasks.add_task(schedule_job, storage, broker, job.id)
     return job
+
+
+@router.post("/sessions/{session_id}/messages", response_model=dict)
+async def create_message(
+    session_id: str,
+    payload: ConversationMessageCreate,
+    background_tasks: BackgroundTasks,
+    storage: Storage = Depends(storage_dep),
+    broker: EventBroker = Depends(broker_dep),
+) -> dict:
+    try:
+        storage.get_session(session_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    result = await NotebookAgent(storage, broker).handle_user_message(
+        session_id=session_id,
+        content=payload.content,
+        mode_hint=payload.mode_hint,
+        options=payload.options,
+        source_ids=payload.source_ids,
+        background_tasks=background_tasks,
+    )
+    return {
+        "user_message": result.user_message,
+        "assistant_message": result.assistant_message,
+        "job": result.job,
+        "decision": result.decision,
+    }
+
+
+@router.get("/sessions/{session_id}/events")
+async def session_events(session_id: str, storage: Storage = Depends(storage_dep)):
+    try:
+        storage.get_session(session_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    async def stream():
+        last_seen = ""
+        while True:
+            messages = storage.list_messages(session_id, limit=120)
+            jobs = storage.list_jobs(session_id)
+            signature = json.dumps(
+                {
+                    "messages": [(m.id, m.created_at) for m in messages],
+                    "jobs": [(j.id, j.status.value, j.updated_at) for j in jobs[:12]],
+                },
+                ensure_ascii=False,
+            )
+            if signature != last_seen:
+                last_seen = signature
+                yield _sse(
+                    "snapshot",
+                    {
+                        "messages": [m.model_dump(mode="json") for m in messages],
+                        "jobs": [j.model_dump(mode="json") for j in jobs],
+                    },
+                    0,
+                )
+            await asyncio.sleep(1.5)
+
+    return StreamingResponse(stream(), media_type="text/event-stream")
 
 
 @router.get("/jobs/{job_id}", response_model=dict)
